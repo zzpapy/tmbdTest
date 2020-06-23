@@ -1,6 +1,12 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-  <h1>{{title}}</h1>
-  <p>Welcome to {{title}}</p>
+  {{ dump(film) }}
+  <h1>{{film.title}}</h1>
+  <form method="post" action="/">
+    <input type="text" name="search">
+    <input type="submit">
+  </form>
+  <p>Welcome to {{film.release_date}}</p>
+  <p>{{ film.overview }}</p>
 {% endblock %}
