@@ -1,0 +1,29 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+<article>
+    <div>
+        <img class="affiche" src="https://image.tmdb.org/t/p/w500/{{acteur.profile_path}}" alt="">
+    </div>
+    <p>
+        {{acteur.biography}}
+    </p>
+    <div>
+        <h3>Filmographie</h3>
+        {{films.cast|length}}
+        <p>Nombre de films : {{films.cast|length}} </p>
+        <div class="uk-flex uk-flex-wrap">
+            {% set i = 1 %}
+            {% for film in films.cast %}
+            <a href="/film?id={{film.id}}">
+            <div>
+                <img src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" alt="">
+                <p>film n° : {{i}} - {{film.title}} - {{film.release_date}}</p>
+            </div>
+            </a>
+            {% set i = i+1 %}
+            {% endfor %}
+        </div>
+    </div>
+</article>
+{% endblock %}

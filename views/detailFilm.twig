@@ -1,0 +1,38 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+<article>
+    <h1>{{film.original_title}}</h1>
+    <div>
+        Produit par :
+        {% for prod in film.production_companies%}
+       
+            <img class="affiche" src="https://image.tmdb.org/t/p/w500/{{prod.logo_path}}" alt="">
+                
+        {% endfor %}
+        réaliser par : 
+        {% for pers in cast.crew %}
+            {% if pers.job == "Director" %}
+            {{pers.name}}
+            <img class ="affiche" src="https://image.tmdb.org/t/p/w500/{{pers.profile_path}}" alt="">
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="uk-flex">
+        <div>            
+            <img src="https://image.tmdb.org/t/p/w500/{{film.poster_path}}" alt="">
+        </div>
+        <p>
+            {{film.overview}}
+        </p>
+    </div>
+    <h3>Casting</h3> 
+    {% for actor in cast.cast %}
+    <p>
+        <a href="/actor?id={{actor.id}}">
+        {{actor.name}} - rôle : {{actor.character}}
+        </a>
+    </p>        
+    {% endfor %} 
+</article>
+{% endblock %}

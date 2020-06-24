@@ -1,0 +1,28 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+<table class="uk-table uk-table-divider uk-table-small uk-table-justify">
+    <caption>Table Caption</caption>
+    <thead>
+      <tr class="uk-table-middle">
+        <th class="uk-text-center uk-width-1-2">Nom</th>
+        <th class="uk-text-center uk-width-1-2">photo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if acteurs.total_results != 0 %}
+      {% for acteur in acteurs.results %}
+        <tr>
+            <td class="uk-text-center uk-table-middle"><a href="/actor?id={{acteur.id}}">{{acteur.name}}</a></td>
+            <td><a href="/actor?id={{acteur.id}}"><img class="affiche" src="https://image.tmdb.org/t/p/w500/{{acteur.profile_path}}" alt=""></a></td>
+          </tr>
+        
+        {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="3">Aucun acteur disponible</td>
+          </tr>
+      {% endif %}
+    </tbody>
+  </table>
+{% endblock %}

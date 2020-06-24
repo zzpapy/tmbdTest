@@ -3,8 +3,33 @@
   <head>
     <title>{{ title }}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.5.4/css/uikit-core-rtl.min.css" integrity="sha256-DHInYNupVwyEiPCdLarD3LaI5ywtIwBZcFUsFaBZsQo=" crossorigin="anonymous" />
   </head>
   <body>
+    {% block nav %}
+    <nav class="uk-navbar-container" uk-navbar>
+      <div class="uk-navbar-left">
+  
+          <ul class="uk-navbar-nav">
+              <li class="uk-active">
+                <h3>Recherche par titre</h3>
+                <form method="post" action="/">
+                  <input type="text" name="search">
+                  <input type="submit">
+                </form></li>
+              <li>
+                <h3>Recherche par acteur ou réalisateur</h3>
+                <form method="post" action="/actor">
+                  <input type="text" name="search">
+                  <input type="submit">
+                </form></li>
+              </li>
+          </ul>
+  
+      </div>
+  </nav>
+    
+    {% endblock %}
     {% block body %}{% endblock %}
   </body>
 </html>
