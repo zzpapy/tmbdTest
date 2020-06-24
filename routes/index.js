@@ -32,7 +32,7 @@ router.post('/', async function(req, res, next) {
   res.render('index', { 
     
     films: movie,
-    query: query,
+    search: query,
     actu: "vos résultats pour votre recherche : "+query
   })
 })

@@ -1,25 +1,25 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-{% set mod = (20 - films.total_results % 20) + films.total_results %}
-<h1>{{actu}} - nombre de films trouvé : {{films.total_results}}  {{mod/20}}</h1>
+
+<h1>{{actu}} - nombre de films trouvé : {{films.total_results}}</h1>
 {% if films.total_results > 20 %}
 <ul class="uk-pagination uk-flex-center">
   <li><a href="#"><span uk-pagination-previous></span></a></li>
   {% if search != undifined %}
- 
-  {% for i in 1 .. mod / 20 %}
+  {% set pages = (20 - films.total_results % 20) + films.total_results %}
+  {% for i in 1 .. pages / 20 %}
     <li>
-      {{i}}
       <form method="post" action="/">
         <input type="hidden" name="page" value="{{i}}">
-        <input type="hidden" name="search" value="{{query}}">
+        <input type="hidden" name="search" value="{{search}}">
         <input type="submit" value="{{i}}">
       </form>
     </li>
   {% endfor %}    
   {% else %}
-  {% for i in 1 .. films.total_results/20 %}
+  {% for i in 1 .. pages %}
+  {% set pages = (20 - films.total_results % 20) + films.total_results %}
   <li>
     <form method="post" action="/now">
       <input type="hidden" name="page" value="{{i}}">
