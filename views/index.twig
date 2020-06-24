@@ -7,8 +7,7 @@
 <ul class="uk-pagination uk-flex-center">
   <li><a href="#"><span uk-pagination-previous></span></a></li>
   {% if search != undifined %}
-  {% set pages = (20 - films.total_results % 20) + films.total_results %}
-  {% for i in 1 .. pages / 20 %}
+  {% for i in 1 .. films.total_pages %}
     <li>
       <form method="post" action="/">
         <input type="hidden" name="page" value="{{i}}">
@@ -18,8 +17,7 @@
     </li>
   {% endfor %}    
   {% else %}
-  {% for i in 1 .. pages %}
-  {% set pages = (20 - films.total_results % 20) + films.total_results %}
+  {% for i in 1 .. films.total_pages %}
   <li>
     <form method="post" action="/now">
       <input type="hidden" name="page" value="{{i}}">
