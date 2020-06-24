@@ -5,12 +5,15 @@
     <h1>{{film.original_title}}</h1>
     <div>
         Produit par :
-        {% for prod in film.production_companies%}
-       
+        {% for prod in film.production_companies %}
+        {% if prod.logo_path != NULL %}
             <img class="affiche" src="https://image.tmdb.org/t/p/w500/{{prod.logo_path}}" alt="">
+        {% else %}
+        {{prod.name}}
+        {% endif %}
                 
         {% endfor %}
-        réaliser par : 
+        réalisé par : 
         {% for pers in cast.crew %}
             {% if pers.job == "Director" %}
             {{pers.name}}
@@ -18,11 +21,11 @@
             {% endif %}
         {% endfor %}
     </div>
-    <div class="uk-flex">
-        <div>            
-            <img src="https://image.tmdb.org/t/p/w500/{{film.poster_path}}" alt="">
+    <div class="uk-flex uk-flex-between">
+        <div class="detAff">            
+            <img src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" alt="">
         </div>
-        <p>
+        <p class="pad">
             {{film.overview}}
         </p>
     </div>

@@ -4,11 +4,18 @@ var film = require('../modeles/Film')
 
 
 router.get('/', async function(req, res, next) {
-  
+  if(typeof req.body.page == undefined){
+    let page = "1"    
+  }
+  else{
+    page = req.body.page
+  }
+  let movie = await film.getNow(page)
   
   res.render('index', { 
     
-    film: ""
+    films: movie,
+    actu: "Actuellement en france"
   })
 })
 
@@ -25,7 +32,36 @@ router.post('/', async function(req, res, next) {
   res.render('index', { 
     
     films: movie,
-    query: query
+    query: query,
+    actu: "vos résultats pour votre recherche : "+query
+  })
+})
+router.get('/now', async function(req, res, next) {
+  if(typeof req.body.page == undefined){
+    let page = "1"    
+  }
+  else{
+    page = req.body.page
+  }
+  let movie = await film.getNow(page)
+  
+  res.render('index', { 
+    
+    films: movie
+  })
+})
+router.post('/now', async function(req, res, next) {
+  if(typeof req.body.page == undefined){
+    let page = "1"    
+  }
+  else{
+    page = req.body.page
+  }
+  let movie = await film.getNow(page)
+  
+  res.render('index', { 
+    
+    films: movie
   })
 })
 router.get('/film', async function(req, res, next) {
@@ -37,7 +73,6 @@ router.get('/film', async function(req, res, next) {
     page = req.body.page
   }
   let movie = await film.getMovie(id)
-  console.log(movie)
   res.render('detailFilm', { 
     
     film: movie.film,
@@ -48,7 +83,6 @@ router.get('/actor', async function(req, res, next) {
   let id = req.query.id
  
   let actor = await film.getActor(id)
-  console.log(actor)
   res.render('actor', { 
     
     acteur: actor.acteur,
@@ -63,16 +97,14 @@ router.post('/actor', async function(req, res, next) {
   else{
     page = req.body.page
   }
-  console.log(page)
   let actor = await film.getActor(id,page)
-  console.log(actor)
   res.render('actor', { 
     
     acteur: actor.acteur,
     films:actor.films
   })
 })
-router.post('/actor', async function(req, res, next) {
+router.post('/actorFind', async function(req, res, next) {
   let query = req.body.search
   if(typeof req.body.page == undefined){
     let page = "1"    
@@ -91,13 +123,20 @@ router.post('/actor', async function(req, res, next) {
 router.post('/year', async function(req, res, next) {
   let dateDeb = req.body.dateDeb
   let dateFin = req.body.dateFin
+  console.log(req.body.fr == undefined)
+  if(req.body.fr == undefined){
+    region = ""
+  }
+  else{
+     region = req.body.fr
+  }
   if(typeof req.body.page == undefined){
     let page = "1"    
   }
   else{
     page = req.body.page
   }
-  let movie = await film.getYearFilm(dateDeb,dateFin,page)
+  let movie = await film.getYearFilm(dateDeb,dateFin,page,region)
   
   res.render('year', { 
     

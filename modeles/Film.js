@@ -17,8 +17,23 @@ class Film{
             })
         
     }
-    getYearFilm(dateDeb,dateFin,page){
-        const url = "https://api.themoviedb.org/3/discover/movie?api_key="+api_key+"&primary_release_date.gte="+dateDeb+"&page="+page+"&primary_release_date.lte="+dateFin
+    getNow(page){
+        const url = "https://api.themoviedb.org/3/movie/now_playing?sort_by=primary_release_date.desc&api_key="+api_key+"&language=fr-FR&page="+page+"&region=FR"
+        return fetch(url)
+            .then(function(res){
+                return res.json()
+            })
+            .then(function(json){
+                return json
+            })
+            .catch(function(er){
+                console.log("error",er)
+            })
+        
+    }
+    getYearFilm(dateDeb,dateFin,page,region){
+        console.log(region)
+        const url = "https://api.themoviedb.org/3/discover/movie?sort_by=primary_release_date.desc&region="+region+"&api_key="+api_key+"&primary_release_date.gte="+dateDeb+"&page="+page+"&primary_release_date.lte="+dateFin
         
         return fetch(url)
             .then(function(res){
@@ -56,7 +71,7 @@ class Film{
         return {cast:cast,film:film}
     }
     async getActor(id){
-        let acteur = await fetch("https://api.themoviedb.org/3/person/"+id+"?api_key="+api_key+"&language=en-US")
+        let acteur = await fetch("https://api.themoviedb.org/3/person/"+id+"?api_key="+api_key)
             .then(function(res){
                 return res.json()
             })
@@ -81,7 +96,8 @@ class Film{
         
     }
     findActor(query){
-        const url = "https://api.themoviedb.org/3/search/person?query="+query+"&api_key="+api_key+"&language=fr-FR&page="+page+"&include_adult=false"
+        console.log(query)
+        const url = "https://api.themoviedb.org/3/search/person?query="+query+"&api_key="+api_key+"&page="+page+"&include_adult=false"
         return fetch(url)
             .then(function(res){
                 return res.json()

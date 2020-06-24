@@ -2,23 +2,27 @@
 
 {% block body %}
 <article>
+    <h3>{{acteur.name}}</h3>
+    <span>date de naissance : {{acteur.birthday|date("d/m/Y")}} </span>
     <div>
         <img class="affiche" src="https://image.tmdb.org/t/p/w500/{{acteur.profile_path}}" alt="">
+        {% if acteur.birthday != NULL %}        
+        {% endif %}
     </div>
     <p>
         {{acteur.biography}}
     </p>
     <div>
         <h3>Filmographie</h3>
-        {{films.cast|length}}
+       
         <p>Nombre de films : {{films.cast|length}} </p>
-        <div class="uk-flex uk-flex-wrap">
+        <div class="uk-flex uk-flex-wrap uk-flex-between">
             {% set i = 1 %}
             {% for film in films.cast %}
-            <a href="/film?id={{film.id}}">
+            <a class="photo" href="/film?id={{film.id}}">
             <div>
-                <img src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" alt="">
-                <p>film n° : {{i}} - {{film.title}} - {{film.release_date}}</p>
+                <img  src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" alt="">
+                <p>film n° : {{i}} - {{film.title}} - {{film.release_date|date("d/m/Y")}}</p>
             </div>
             </a>
             {% set i = i+1 %}
