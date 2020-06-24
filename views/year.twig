@@ -1,0 +1,47 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+<p>Résultats :  {{films.total_results}} </p>
+{% if films.total_results > 20 %}
+<ul class="uk-pagination uk-flex-center">
+  <li><a href="#"><span uk-pagination-previous></span></a></li>
+  {% for i in 1 .. films.total_results/20 %}
+    <li>
+      <form method="post" action="/year">
+        <input type="hidden" name="page" value="{{i}}">
+        <input type="hidden" name="dateDeb" value="{{dateDeb}}">
+        <input type="hidden" name="dateFin" value="{{dateFin}}">
+        <input type="submit" value="{{i}}">
+      </form>
+    </li>
+  {% endfor %}
+  <li><a href="#"><span uk-pagination-next></span></a></li>
+</ul>
+{% endif %}   
+<table class="uk-table uk-table-divider uk-table-small uk-table-justify">
+  <thead>
+    <tr class="uk-table-middle">
+      <th class="uk-text-center uk-width-1-2">Titre</th>
+      <th class="uk-text-left uk-width-small">date</th>
+      <th class="uk-text-center uk-width-1-2">affiche</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if films.total_results != 0 %}
+    {% for film in films.results %}
+    
+      <tr>
+          <td class="uk-text-center uk-table-middle"><a href="/film?id={{film.id}}">{{film.title}}</a></td>
+          <td class="uk-text-center uk-table-middle">{{film.release_date}}</td>          
+          <td class="uk-text-center uk-table-middle"><img class="affiche" src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" alt=""></td>
+        </tr>
+      
+      {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan="3">Aucun film disponible</td>
+        </tr>
+    {% endif %}
+  </tbody>
+</table>
+{% endblock %}

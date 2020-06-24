@@ -88,5 +88,23 @@ router.post('/actor', async function(req, res, next) {
     query: query
   })
 })
+router.post('/year', async function(req, res, next) {
+  let dateDeb = req.body.dateDeb
+  let dateFin = req.body.dateFin
+  if(typeof req.body.page == undefined){
+    let page = "1"    
+  }
+  else{
+    page = req.body.page
+  }
+  let movie = await film.getYearFilm(dateDeb,dateFin,page)
+  
+  res.render('year', { 
+    
+    films: movie,
+    dateDeb:dateDeb,
+    dateFin:dateFin
+  })
+})
 
 module.exports = router

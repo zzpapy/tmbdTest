@@ -17,6 +17,21 @@ class Film{
             })
         
     }
+    getYearFilm(dateDeb,dateFin,page){
+        const url = "https://api.themoviedb.org/3/discover/movie?api_key="+api_key+"&primary_release_date.gte="+dateDeb+"&page="+page+"&primary_release_date.lte="+dateFin
+        
+        return fetch(url)
+            .then(function(res){
+                return res.json()
+            })
+            .then(function(json){
+                return json
+            })
+            .catch(function(er){
+                console.log("error",er)
+            })
+        
+    }
     async getMovie(id){
         let film = await fetch("https://api.themoviedb.org/3/movie/"+id+"?api_key="+api_key+"&language=fr-FR")
             .then(function(res){

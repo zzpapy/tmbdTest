@@ -9,18 +9,27 @@
     {% block nav %}
     <nav class="uk-navbar-container" uk-navbar>
       <div class="uk-navbar-left">
-  
-          <ul class="uk-navbar-nav">
+          <ul class="nav uk-navbar-nav uk-flex uk-flex-between">
               <li class="uk-active">
-                <h3>Recherche par titre</h3>
+                <label>Recherche par titre</label>
                 <form method="post" action="/">
                   <input type="text" name="search">
                   <input type="submit">
                 </form></li>
               <li>
-                <h3>Recherche par acteur ou réalisateur</h3>
+                <label>Recherche par acteur ou réalisateur</label>
                 <form method="post" action="/actor">
                   <input type="text" name="search">
+                  <input type="submit">
+                </form></li>
+              </li>
+              <li>
+                <label>Recherche par date</label>
+                <form method="post" action="/year">
+                  <label for="">de</label>
+                  <input type="date" name="dateDeb">
+                  <label for="">à</label>
+                  <input type="date" name="dateFin">
                   <input type="submit">
                 </form></li>
               </li>
