@@ -1,20 +1,20 @@
 const sqlite3 = require('sqlite3').verbose()
 
 class Connect{
-    constructor(){
-        this.db = this.open()
-    }
+    // constructor(){
+    //     this.db = this.open()
+    // }
     open() {
-        let db = new sqlite3.Database('./db/preferences.db', (err) => {
+        this.db = new sqlite3.Database('./db/preferences.db', (err) => {
             if (err) {
             console.error(err.message);
             }
             console.log('Connected to the database.')
         })
-        return db
     }
 
     getAll(sql, myClass) {
+        this.open()
         let likes = []
         this.db.each(sql, (err, row) => {
             if (err) {
@@ -27,6 +27,7 @@ class Connect{
     }
 
     getById(sql, myClass, id){
+        this.open()
         return new Promise((resolve, reject) => {
             this.db.get(sql, [id], (err, row) => {
                 this.db.close()
