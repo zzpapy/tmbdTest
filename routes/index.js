@@ -47,7 +47,8 @@ router.get('/now', async function(req, res, next) {
   
   res.render('index', { 
     
-    films: movie
+    films: movie,
+    actu: "Actuellement en france"
   })
 })
 router.post('/now', async function(req, res, next) {
@@ -123,7 +124,6 @@ router.post('/actorFind', async function(req, res, next) {
 router.post('/year', async function(req, res, next) {
   let dateDeb = req.body.dateDeb
   let dateFin = req.body.dateFin
-  console.log(req.body.fr == undefined)
   if(req.body.fr == undefined){
     region = ""
   }
@@ -137,12 +137,13 @@ router.post('/year', async function(req, res, next) {
     page = req.body.page
   }
   let movie = await film.getYearFilm(dateDeb,dateFin,page,region)
-  
+  console.log(req.body.fr,"toto")
   res.render('year', { 
     
     films: movie,
     dateDeb:dateDeb,
-    dateFin:dateFin
+    dateFin:dateFin,
+    region: region
   })
 })
 
