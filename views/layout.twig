@@ -6,42 +6,54 @@
     <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.5.4/css/uikit-core-rtl.min.css" integrity="sha256-DHInYNupVwyEiPCdLarD3LaI5ywtIwBZcFUsFaBZsQo=" crossorigin="anonymous" />
   </head>
   <body>
-    {% block nav %}
-    <nav class="uk-navbar-container" uk-navbar>
-      <div class="uk-navbar-left">
-          <ul class="nav uk-navbar-nav uk-flex uk-flex-between">
-              <li class="uk-active">
-                <label class="label">Recherche par titre</label>
-                <form method="post" action="/">
-                  <input type="text" name="search">
-                  <input type="submit">
-                </form></li>
-              <li>
-                <label class="label">Recherche par acteur ou réalisateur</label>
-                <form method="post" action="/actorFind">
-                  <input type="text" name="search">
-                  <input type="submit">
-                </form></li>
-              </li>
-              <li>
-                <label class="label">Recherche par date</label>
-                <form method="post" action="/year">
-                  <label for="">de</label>
-                  <input type="date" name="dateDeb">
-                  <label for="">à</label>
-                  <input type="date" name="dateFin">
-                  <label for="">rechercher en france</label>
-                  <input type="checkbox" name="fr" value="FR">
-                  <input type="submit">
-                </form></li>
-              </li>
-              <li><a href="/now">Actuellement en france</a></li>
-          </ul>
-  
-      </div>
-  </nav>
+    <div class="uk-flex">
+      {% block nav %}
+      <nav class="uk-navbar-container uk-padding uk-navbar uk-width-1-5" >
+        <div class="uk-navbar-start uk-flex">
+            <ul class="nav uk-navbar-nav uk-flex uk-flex-column ">
+                <li class="uk-active">
+                  <label class="label">Recherche par titre</label>
+                  <form method="post" action="/">
+                    <input type="text" name="search">
+                    <input type="submit">
+                  </form></li>
+                <li>
+                  <label class="label">Recherche par acteur ou réalisateur</label>
+                  <form method="post" action="/actorFind">
+                    <input type="text" name="search">
+                    <input type="submit">
+                  </form></li>
+                </li>
+                <li>
+                  <label class="label">Recherche par date</label>
+                  <form method="post" action="/year">
+                    <p>
+                      <!-- <label for="">de</label> -->
+                      de <input type="date" name="dateDeb">
+                    </p>
+                    <p>
+                      <!-- <label for="">à</label> -->
+                      à <input type="date" name="dateFin">
+                    </p>
+                    <label for="">rechercher en france</label>
+                    <input type="checkbox" name="fr" value="FR">
+                    <input type="submit">
+                  </form></li>
+                </li>
+                <li><a href="/now">Actuellement en france</a></li>
+            </ul>
     
-    {% endblock %}
-    {% block body %}{% endblock %}
+        </div>
+    </nav>
+      
+      {% endblock %}
+      <div class="uk-padding">
+        {% block body %}{% endblock %}
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="/scripts/jq-paginator.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.5.4/js/uikit.min.js" integrity="sha256-8QekXFS5Mxv+c4TrPQY01b+3GUCDKMEtUT4hwe79u+U=" crossorigin="anonymous"></script>
+    <script src="/scripts/script.js"></script>
   </body>
 </html>

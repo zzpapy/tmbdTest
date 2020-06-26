@@ -1,5 +1,4 @@
 var express = require('express')
-var app = express()
 var router = express.Router()
 const bodyParser = require('body-parser')
 var film = require('../modeles/Film')
@@ -9,20 +8,28 @@ var manager = require('../db/connect')
 
 
 router.get('/', async function(req, res, next) {
-  console.log(req.session)
-  req.session.test ="toto"
-  if(typeof req.body.page == undefined){
+  let query = req.query.search
+  
+  if(typeof req.query.page == undefined){
     let page = "1"    
   }
   else{
-    page = req.body.page
+    page = req.query.page
   }
-  let movie = await film.getNow(page)
+  if(req.query.search == undefined){
+    console.log(query)
+    var movie = await film.getNow(page)
+  }
+  else{
+    var movie = await film.getFilm(query,page)
+  }
   
   res.render('index', { 
     
     films: movie,
-    actu: "Actuellement en france"
+    search: query,
+    actu: "vos résultats pour votre recherche : "+query
+    // actu: "Actuellement en france"
   })
 })
 
@@ -35,7 +42,7 @@ router.post('/', async function(req, res, next) {
     page = req.body.page
   }
   let movie = await film.getFilm(query,page)
-  req.session.movies = movies
+  req.session.movies = movie
   res.render('index', { 
     
     films: movie,
@@ -44,11 +51,11 @@ router.post('/', async function(req, res, next) {
   })
 })
 router.get('/now', async function(req, res, next) {
-  if(typeof req.body.page == undefined){
+  if(typeof req.query.page == undefined){
     let page = "1"    
   }
   else{
-    page = req.body.page
+    page = req.query.page
   }
   let movie = await film.getNow(page)
   
@@ -69,18 +76,10 @@ router.post('/now', async function(req, res, next) {
   
   res.render('index', { 
     
-    films: movie
+    films: movie,
+    actu: "Actuellement en france"
   })
 })
-var sess = {
-  secret: 'keyboard cat',
-  cookie: {}
-}
-
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
-}
 
 router.get('/film', async function(req, res, next) {
   

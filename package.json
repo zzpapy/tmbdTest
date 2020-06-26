@@ -11,6 +11,7 @@
     "express": "~4.16.1",
     "express-session": "^1.17.1",
     "http-errors": "~1.6.3",
+    "jq-paginator": "^2.0.2",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.0",
     "sqlite3": "^4.2.0",
