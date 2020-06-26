@@ -19,16 +19,19 @@ router.get('/', async function(req, res, next) {
   if(req.query.search == undefined){
     console.log(query)
     var movie = await film.getNow(page)
+    actu = "Actuellement en France"
   }
   else{
     var movie = await film.getFilm(query,page)
+    actu = "vos résultats pour votre recherche : "+query
   }
   
   res.render('index', { 
     
     films: movie,
     search: query,
-    actu: "vos résultats pour votre recherche : "+query
+    actu: actu,
+    page: page
     // actu: "Actuellement en france"
   })
 })

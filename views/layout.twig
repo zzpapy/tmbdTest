@@ -6,11 +6,12 @@
     <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.5.4/css/uikit-core-rtl.min.css" integrity="sha256-DHInYNupVwyEiPCdLarD3LaI5ywtIwBZcFUsFaBZsQo=" crossorigin="anonymous" />
   </head>
   <body>
+    <h1 class="uk-text-center uk-navbar-container uk-padding title">Exploitation de l'API tmbd</h1>
     <div class="uk-flex">
       {% block nav %}
-      <nav class="uk-navbar-container uk-padding uk-navbar uk-width-1-5" >
+      <nav class="nav uk-navbar-container uk-padding uk-navbar uk-width-1-5" >
         <div class="uk-navbar-start uk-flex">
-            <ul class="nav uk-navbar-nav uk-flex uk-flex-column ">
+            <ul class="uk-navbar-nav uk-flex uk-flex-column ">
                 <li class="uk-active">
                   <label class="label">Recherche par titre</label>
                   <form method="post" action="/">
@@ -47,7 +48,7 @@
     </nav>
       
       {% endblock %}
-      <div class="uk-padding">
+      <div class="nav">
         {% block body %}{% endblock %}
       </div>
     </div>
