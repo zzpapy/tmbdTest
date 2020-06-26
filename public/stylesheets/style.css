@@ -12,6 +12,7 @@ a {
 .nav{
   padding: 0 2em;
   border: 1px solid #F8F8F8;
+  width: 100%;
 }
 .pad{
   padding: 0 1em;
@@ -47,6 +48,7 @@ form{
 }
 .title{
   margin: 0;
+  width: 100%;
 }
 .ligne{
   height: 1px;
