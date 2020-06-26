@@ -14,6 +14,15 @@ router.get("/", function(req, res, next){
     likes: likes
   })
 })
+router.get("/addComment", function(req, res, next){
+  
+  let likes = manager.getAll("select * from likes", Like)
+
+  res.render('index', { 
+    films: '',
+    likes: likes
+  })
+})
 
 router.get("/addLike/:id", function(req, res, next){
   //bdd bla bla bla

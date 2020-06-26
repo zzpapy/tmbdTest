@@ -5,7 +5,7 @@ class Connect{
     //     this.db = this.open()
     // }
     open() {
-        this.db = new sqlite3.Database('./db/preferences.db', (err) => {
+        this.db = new sqlite3.Database('./db/pref.db', (err) => {
             if (err) {
             console.error(err.message);
             }
@@ -15,15 +15,21 @@ class Connect{
 
     getAll(sql, myClass) {
         this.open()
-        let likes = []
-        this.db.each(sql, (err, row) => {
+        let tab = []
+        let i = 0
+        
+        this.db.all(sql, (err, rows) => {
             if (err) {
                 console.error(err.message)
             }
-            likes.push(new myClass(row))
+            // console.log("rere",tab)
+            rows.forEach((row) => {
+                tab.push(new myClass(row))
+              });
+            i++
         })
+        return tab
         this.db.close()
-        return likes
     }
 
     getById(sql, myClass, id){
@@ -38,6 +44,18 @@ class Connect{
             })
         })
     }
+    async run(sql) {
+        this.open()
+        this.db.run("CREATE TABLE IF NOT EXISTS comment1(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, movie_id INTEGER)")
+    
+        await this.db.run(sql, (err) => {
+            if (err) {
+                console.error(err.message)
+            }
+        })
+        this.db.close()
+    }
+    
     close(){
         db.close((err) => {
             if (err) {

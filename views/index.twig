@@ -20,8 +20,7 @@
   {% for i in 1 .. films.total_pages %}
   <li>
     <form method="post" action="/now">
-      <input type="hidden" name="page" value="{{i}}">
-     
+      <input type="hidden" name="page" value="{{i}}">     
       <input type="submit" value="{{i}}">
     </form>
   </li>

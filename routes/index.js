@@ -1,9 +1,16 @@
 var express = require('express')
+var app = express()
 var router = express.Router()
+const bodyParser = require('body-parser')
 var film = require('../modeles/Film')
+const Comment = require('../modeles/Comment.Class')
+const Like = require('../modeles/Like.Class')
+var manager = require('../db/connect')
 
 
 router.get('/', async function(req, res, next) {
+  console.log(req.session)
+  req.session.test ="toto"
   if(typeof req.body.page == undefined){
     let page = "1"    
   }
@@ -28,7 +35,7 @@ router.post('/', async function(req, res, next) {
     page = req.body.page
   }
   let movie = await film.getFilm(query,page)
-  
+  req.session.movies = movies
   res.render('index', { 
     
     films: movie,
@@ -65,7 +72,21 @@ router.post('/now', async function(req, res, next) {
     films: movie
   })
 })
+var sess = {
+  secret: 'keyboard cat',
+  cookie: {}
+}
+
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+
 router.get('/film', async function(req, res, next) {
+  
+  
+  var sess = req.session
+  console.log(sess)
   let id = req.query.id
   if(typeof req.body.page == undefined){
     let page = "1"    
@@ -73,9 +94,11 @@ router.get('/film', async function(req, res, next) {
   else{
     page = req.body.page
   }
+  let comments = await manager.getAll("select * from comment1 WHERE movie_id="+id, Comment)
+  let likes = await manager.getAll("select * from like", Like)
   let movie = await film.getMovie(id)
   res.render('detailFilm', { 
-    
+    comments: comments,
     film: movie.film,
     cast: movie.cast
   })
@@ -137,13 +160,37 @@ router.post('/year', async function(req, res, next) {
     page = req.body.page
   }
   let movie = await film.getYearFilm(dateDeb,dateFin,page,region)
-  console.log(req.body.fr,"toto")
   res.render('year', { 
     
     films: movie,
     dateDeb:dateDeb,
     dateFin:dateFin,
     region: region
+  })
+})
+router.post("/addComment", async function(req, res, next){
+  let text = req.body.text
+  let id = req.body.id
+  manager.run('insert into comment1 (text,movie_id) values ("'+text+'","'+id+'")')
+
+  let movie = await film.getMovie(id)
+  res.redirect('localhost:3000/detailFilm',301, { 
+    
+    film: movie.film,
+    cast: movie.cast,
+  })
+})
+router.get("/delete", async function(req, res, next){
+ 
+  let id = req.query.id
+  let film_id = req.query.film_id
+  manager.run('delete from comment1 where id='+id)
+
+  let movie = await film.getMovie(film_id)
+  res.redirect('localhost:3000/detailFilm',301, { 
+    
+    film: movie.film,
+    cast: movie.cast,
   })
 })
 

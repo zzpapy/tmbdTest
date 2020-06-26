@@ -3,31 +3,55 @@
 {% block body %}
 <article>
     <h1>{{film.original_title}}</h1>
-    <div>
-        Produit par :
-        {% for prod in film.production_companies %}
-        {% if prod.logo_path != NULL %}
-            <img class="affiche" src="https://image.tmdb.org/t/p/w500/{{prod.logo_path}}" alt="">
-        {% else %}
-        {{prod.name}}
-        {% endif %}
-                
-        {% endfor %}
-        réalisé par : 
-        {% for pers in cast.crew %}
-            {% if pers.job == "Director" %}
-            {{pers.name}}
-            <img class ="affiche" src="https://image.tmdb.org/t/p/w500/{{pers.profile_path}}" alt="">
+    <div class="uk-flex uk-flex-between">
+        <div>
+            Produit par :
+            {% for prod in film.production_companies %}
+            {% if prod.logo_path != NULL %}
+                <img class="affiche" src="https://image.tmdb.org/t/p/w500/{{prod.logo_path}}" alt="">
+            {% else %}
+            {{prod.name}}
             {% endif %}
-        {% endfor %}
+                    
+            {% endfor %}
+            réalisé par : 
+            {% for pers in cast.crew %}
+                {% if pers.job == "Director" %}
+                <a href="/actor?id={{pers.id}}">
+                    {{pers.name}} 
+                </a>
+                <img class ="affiche" src="https://image.tmdb.org/t/p/w500/{{pers.profile_path}}" alt="">
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div>
+            <h3>ajouter un commentaire au film</h3>
+            <form action="/addComment" method="post">
+                <input type="text" name="text">
+                <input type="hidden" name="id" value="{{film.id}}">
+                <input type="submit">
+            </form>
+        </div>
     </div>
     <div class="uk-flex uk-flex-between">
-        <div class="detAff">            
+        <div class="detAff ">            
             <img src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" alt="">
         </div>
-        <p class="pad">
-            {{film.overview}}
-        </p>
+        <div class="uk-flex uk-flex-between uk-flex-column uk-flex-1 uk-padding">
+            <h3>Teaser</h3>
+            <p class="pad">
+                {{film.overview}}
+            </p>
+            <h3>Commentaires</h3>
+            <div>
+                {% for comment in comments %}
+                <p>
+                    {{comment.text }}
+                    <a href="/delete?id={{comment.id}}&film_id={{film.id}}">X</a>
+                </p>
+                {% endfor %}
+            </div>
+        </div>
     </div>
     <h3>Casting</h3> 
     {% for actor in cast.cast %}

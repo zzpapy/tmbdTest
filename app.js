@@ -1,6 +1,8 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var session = require('express-session')
+const bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -11,7 +13,25 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+app.set('trust proxy', 1) // trust first proxy
 app.set('view engine', 'twig');
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.get('/', (req, res) => {
+//   if (req.session.views) {
+//     req.session.views++;
+//   }
+//   else {
+//     req.session.views = 1;
+//   }
+//   // res.send(`${req.session.views} views`);
+// })
 
 app.use(logger('dev'));
 app.use(express.json());
