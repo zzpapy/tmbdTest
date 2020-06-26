@@ -11,6 +11,7 @@ a {
 }
 .nav{
   padding: 0 2em;
+  border: 1px solid #F8F8F8;
 }
 .pad{
   padding: 0 1em;
@@ -46,6 +47,11 @@ form{
 }
 .title{
   margin: 0;
+}
+.ligne{
+  height: 1px;
+  border-bottom: 1px solid black;
+  margin: 0.2em 0;
 }
 
 
