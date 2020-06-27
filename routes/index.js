@@ -88,7 +88,6 @@ router.get('/film', async function(req, res, next) {
   
   
   var sess = req.session
-  console.log(sess)
   let id = req.query.id
   if(typeof req.body.page == undefined){
     let page = "1"    
@@ -97,20 +96,23 @@ router.get('/film', async function(req, res, next) {
     page = req.body.page
   }
   let comments = await manager.getAll("select * from comment1 WHERE movie_id="+id, Comment)
-  let likes = await manager.getAll("select * from like", Like)
+  let likes = await manager.getById('SELECT * FROM like WHERE id_movie = :id',Like,id)
+  console.log(likes)
   let movie = await film.getMovie(id)
   res.render('detailFilm', { 
+    likes: likes.nb_like,
     comments: comments,
     film: movie.film,
     cast: movie.cast
   })
 })
 router.get('/actor', async function(req, res, next) {
+  console.log(req.path)
   let id = req.query.id
- 
+  let comments = await manager.getAll("select * from comment1 WHERE movie_id="+id, Comment)
   let actor = await film.getActor(id)
   res.render('actor', { 
-    
+    comments: comments,
     acteur: actor.acteur,
     films:actor.films
   })
@@ -174,13 +176,20 @@ router.post("/addComment", async function(req, res, next){
   let text = req.body.text
   let id = req.body.id
   manager.run('insert into comment1 (text,movie_id) values ("'+text+'","'+id+'")')
-
-  let movie = await film.getMovie(id)
-  res.redirect('localhost:3000/detailFilm',301, { 
-    
-    film: movie.film,
-    cast: movie.cast,
-  })
+  if(typeof req.body.actor !== 'undefined'){
+    let actor = await film.getActor(id)
+    res.redirect('localhost:3000/actor',300, {      
+      acteur: actor.acteur,
+      films:actor.films
+    })
+  }
+  else{
+    let movie = await film.getMovie(id)
+    res.redirect('localhost:3000/detailFilm',301, {      
+      film: movie.film,
+      cast: movie.cast,
+    })
+  }
 })
 router.get("/delete", async function(req, res, next){
  
@@ -193,6 +202,27 @@ router.get("/delete", async function(req, res, next){
     
     film: movie.film,
     cast: movie.cast,
+  })
+})
+router.get("/addLike",async function(req, res, next){
+  id = req.query.id
+  like_movie = await manager.getById('SELECT * FROM like WHERE id_movie = ?',Like,id)
+  nb_like = like_movie.nb_like + 1
+  if(typeof like_movie.nb_like != 'undefined'){
+    await manager.run('UPDATE like SET nb_like ='+(nb_like)+' WHERE id_movie='+id)
+  }
+  else{
+    await manager.run('insert into like (id_movie,nb_like) values ("'+id+'","1")')
+  }
+  let comments = await manager.getAll("select * from comment1 WHERE movie_id="+id, Comment)
+  let movie = await film.getMovie(id)
+  let likes = await manager.getById('SELECT * FROM like WHERE id_movie = :id',Like,id)
+  console.log(likes)
+  res.render('detailFilm', { 
+    likes: likes.nb_like,
+    comments: comments,
+    film: movie.film,
+    cast: movie.cast
   })
 })
 

@@ -163,3 +163,26 @@ var init = function() {
 
 document.addEventListener('DOMContentLoaded', init, false);
 
+$(".js_like_link").on('click',function(e){
+    e.preventDefault();
+    const url = $(this).attr('href');
+    console.log(url);
+    const span = $(this).find('.js_like')
+    const icone = $(this).find('i')
+    $.get(url).then(function(response){
+           const likes = response.data.likes
+           span.text(likes)
+           if(icone.hasClass('fas')){
+               icone.removeClass('fas')
+               icone.addClass('far')
+           }
+           else{
+                icone.removeClass('far')
+                icone.addClass('fas')
+           }
+    }).catch(function(error){
+        if(error.response.status === 403){
+            alert("vous ne pouvez pas liker un questionnaire si vous n'êtes pas connecté !!!")
+        }
+    })
+})

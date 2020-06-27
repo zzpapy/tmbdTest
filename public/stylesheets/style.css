@@ -1,6 +1,8 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  padding: 0;
 }
 
 a {
@@ -48,7 +50,7 @@ form{
 }
 .title{
   margin: 0;
-  width: 100%;
+  /* width: 95%; */
 }
 .ligne{
   height: 1px;

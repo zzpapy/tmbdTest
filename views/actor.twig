@@ -13,6 +13,23 @@
         {{acteur.biography}}
     </p>
     <div>
+        <h3>ajouter un commentaire au film</h3>
+        <form action="/addComment" method="post">
+            <input type="text" name="text">
+            <input type="hidden" name="id" value="{{acteur.id}}">
+            <input type="hidden" name="actor" value="true" >
+            <input type="submit">
+        </form>
+    </div>
+    <div>
+        {% for comment in comments %}
+        <p>
+            {{comment.text }}
+            <a href="/delete?id={{comment.id}}&film_id={{acteur.id}}">X</a>
+        </p>
+        {% endfor %}
+    </div>
+    <div>
         <h3>Filmographie</h3>
        
         <p>Nombre de films : {{films.cast|length}} </p>

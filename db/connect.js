@@ -28,8 +28,8 @@ class Connect{
               });
             i++
         })
-        return tab
         this.db.close()
+        return tab
     }
 
     getById(sql, myClass, id){
@@ -47,7 +47,7 @@ class Connect{
     async run(sql) {
         this.open()
         this.db.run("CREATE TABLE IF NOT EXISTS comment1(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, movie_id INTEGER)")
-    
+        console.log(sql)
         await this.db.run(sql, (err) => {
             if (err) {
                 console.error(err.message)

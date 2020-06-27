@@ -2,18 +2,16 @@
 
 {% block body %}
 <article>
-    <h1>{{film.original_title}}</h1>
-    <div class="uk-flex uk-flex-between">
-        <div class="prod">
-            <div class="detAff ">            
-                <img src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" alt="">
-            </div>
-            
-        </div>
-    </div>
+    <h1>{{film.original_title}} - likes : {{likes}}</h1>
     <div class="uk-flex uk-flex-between">
         <div>
-
+            <div class="prod">
+                <div class="detAff ">            
+                    <img src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" alt="">
+                    <a href="/addLike?id={{film.id}}"><i class="far fa-thumbs-up fa-2x"></i></a>
+                </div>
+                
+            </div>
             <p>
                 Produit par :
                 {% for prod in film.production_companies %}
@@ -40,8 +38,16 @@
                     {% endif %}
                 {% endfor %}
             </p>
+            <h3>Casting</h3> 
+            {% for actor in cast.cast %}
+            <p>
+                <a href="/actor?id={{actor.id}}">
+                {{actor.name}} - rôle : {{actor.character}}
+                </a>
+            </p>        
+            {% endfor %} 
         </div>
-        <div class="uk-flex uk-flex-between uk-flex-column uk-flex-1 uk-padding">
+        <div class="uk-flex uk-flex-column uk-flex-1 uk-padding">
             <h3>Teaser</h3>
             <p class="pad">
                 {{film.overview}}
@@ -65,13 +71,5 @@
             </div>
         </div>
     </div>
-    <h3>Casting</h3> 
-    {% for actor in cast.cast %}
-    <p>
-        <a href="/actor?id={{actor.id}}">
-        {{actor.name}} - rôle : {{actor.character}}
-        </a>
-    </p>        
-    {% endfor %} 
 </article>
 {% endblock %}
