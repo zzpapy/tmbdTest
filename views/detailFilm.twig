@@ -2,13 +2,12 @@
 
 {% block body %}
 <article>
-    <h1>{{film.original_title}} - likes : {{likes}}</h1>
+    <h1>{{film.original_title}} - likes : {{likes}} <a href="/addLike?id={{film.id}}"><i class="far fa-thumbs-up"></i></a></h1>
     <div class="uk-flex uk-flex-between">
         <div>
             <div class="prod">
                 <div class="detAff ">            
                     <img src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" alt="">
-                    <a href="/addLike?id={{film.id}}"><i class="far fa-thumbs-up fa-2x"></i></a>
                 </div>
                 
             </div>
