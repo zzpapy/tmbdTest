@@ -13,12 +13,13 @@
         {{acteur.biography}}
     </p>
     <div>
-        <h3>ajouter un commentaire au film</h3>
         <form action="/addComment" method="post">
-            <input type="text" name="text">
+            <div class="uk-margin">
+                <textarea class="uk-textarea" rows="5" placeholder="Ajouter un commentaire" name="text"></textarea>
+            </div>
             <input type="hidden" name="id" value="{{acteur.id}}">
             <input type="hidden" name="actor" value="true" >
-            <input type="submit">
+            <input type="submit" value="Ajouter">
         </form>
     </div>
     <div>

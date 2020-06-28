@@ -7,12 +7,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
   </head>
   <body>
-    <h1 class="uk-text-center uk-navbar-container uk-padding title">Exploitation de l'API tmbd</h1>
+    <div class="head">
+      <div class="uk-flex">
+        <div class="title">
+          <img src="/img/back.gif" alt="">
+        </div>
+        <div class="uk-flex-1">
+          <h1 class="uk-text-left uk-padding uk-flex-around">Exploitation de l'API tmbd</h1>
+          <div class="uk-flex uk-flex-around">
+            {% if actu != undefined %}
+            <h3>{{actu}} - nombre de films trouvé : {{films.total_results}}</h3>
+            <div class="pagin ">
+              {% if films.total_results > 20 %}
+                {% if search != undifined %}
+                <div id="pagination" data-size="{{films.total_pages}}" data-search="{{search}}" data-href="/?search={{search}}&page="></div>     
+                {% else %}
+                <div id="pagination" data-size="{{films.total_pages}}" data-search="{{search}}" data-href="/now?page="></div> 
+                {% endif %}
+              {% endif %}
+              {% if page >= 1 %}
+              {% set page = page %}
+              {% else %}
+                {% set page = 1 %}
+              {% endif %}
+              <p>page n° : {{page}}</p>
+            </div>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+    </div>
     <div class="uk-flex uk-flex-between">
       {% block nav %}
-      <nav class="nav uk-navbar-container uk-padding uk-navbar uk-width-1-5" >
+      <nav class="back uk-padding uk-navbar uk-width-1-5" >
         <div class="uk-navbar-start uk-flex">
-            <ul class="uk-navbar-nav uk-flex uk-flex-column ">
+            <ul class="uk-navbar-nav uk-flex uk-flex-column nav_color">
                 <li class="uk-active">
                   <label class="label">Recherche par titre</label>
                   <form method="post" action="/">
@@ -32,14 +61,21 @@
                 <li>
                   <label class="label">Recherche par date</label>
                   <form method="post" action="/year">
-                    <p>
-                      <!-- <label for="">de</label> -->
-                      de <input type="date" name="dateDeb">
-                    </p>
-                    <p>
-                      <!-- <label for="">à</label> -->
-                      à <input type="date" name="dateFin">
-                    </p>
+                    <table>
+                      <tr>
+                        <td>de  </td>
+                        <td>
+                          <input type="date" name="dateDeb">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>à  </td>
+                        <td>
+                          <input type="date" name="dateFin">
+                        </td>
+                      </tr>
+
+                    </table>
                     <label for="">rechercher en france</label>
                     <input type="checkbox" name="fr" value="FR">
                     <input type="submit">

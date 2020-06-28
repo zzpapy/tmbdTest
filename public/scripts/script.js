@@ -186,3 +186,9 @@ $(".js_like_link").on('click',function(e){
         }
     })
 })
+$(".head").on("scroll",function(){
+})
+window.addEventListener('scroll', function(e) {
+    console.log('toto')
+    $(".head").css('background','rgb(255,255,255,0.8)')
+  });

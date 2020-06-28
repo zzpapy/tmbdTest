@@ -217,7 +217,7 @@ router.get("/addLike",async function(req, res, next){
   let comments = await manager.getAll("select * from comment1 WHERE movie_id="+id, Comment)
   let movie = await film.getMovie(id)
   let likes = await manager.getById('SELECT * FROM like WHERE id_movie = :id',Like,id)
-  console.log(likes)
+  
   res.render('detailFilm', { 
     likes: likes.nb_like,
     comments: comments,

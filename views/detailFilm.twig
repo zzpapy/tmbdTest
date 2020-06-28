@@ -2,14 +2,17 @@
 
 {% block body %}
 <article>
-    <h1>{{film.original_title}} - likes : {{likes}} <a href="/addLike?id={{film.id}}"><i class="far fa-thumbs-up"></i></a></h1>
+     <h1>{{film.original_title}}
+        {% if likes > 0 %}
+        - likes : {{likes}} 
+        {% endif %}
+        <a href="/addLike?id={{film.id}}"><i class="far fa-thumbs-up"></i></a></h1>
     <div class="uk-flex uk-flex-between">
-        <div>
+        <div class="uk-width-1-4">
             <div class="prod">
                 <div class="detAff ">            
                     <img src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" alt="">
-                </div>
-                
+                </div>                
             </div>
             <p>
                 Produit par :
@@ -22,7 +25,9 @@
                         
                 {% endfor %}
             </p>            
-                <p>
+            <p>
+                <button class="cast_but" uk-toggle="target: #my-id" type="button">Casting</button>
+                </p>
                 réalisé par : 
                 {% for pers in cast.crew %}
                     {% if pers.job == "Director" %}
@@ -37,14 +42,20 @@
                     {% endif %}
                 {% endfor %}
             </p>
-            <h3>Casting</h3> 
-            {% for actor in cast.cast %}
-            <p>
-                <a href="/actor?id={{actor.id}}">
-                {{actor.name}} - rôle : {{actor.character}}
-                </a>
-            </p>        
-            {% endfor %} 
+
+<!-- This is the modal -->
+        <div id="my-id" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h3>Casting</h3> 
+                {% for actor in cast.cast %}
+                <p>
+                    <a href="/actor?id={{actor.id}}">
+                    {{actor.name}} - rôle : {{actor.character}}
+                    </a>
+                </p>        
+                {% endfor %} 
+                </div>
+            </div>
         </div>
         <div class="uk-flex uk-flex-column uk-flex-1 uk-padding">
             <h3>Teaser</h3>
@@ -52,11 +63,12 @@
                 {{film.overview}}
             </p>
             <div>
-                <h3>ajouter un commentaire au film</h3>
                 <form action="/addComment" method="post">
-                    <input type="text" name="text">
+                    <div class="uk-margin">
+                        <textarea class="uk-textarea" rows="5" placeholder="Ajouter un commentaire" name="text"></textarea>
+                    </div>
                     <input type="hidden" name="id" value="{{film.id}}">
-                    <input type="submit">
+                    <input type="submit" value="ajouter">
                 </form>
             </div>
             <h3>Commentaires</h3>
