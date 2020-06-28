@@ -19,6 +19,7 @@
             {% if actu != undefined %}
             <h3>{{actu}} - nombre de films trouvé : {{films.total_results}}</h3>
             <div class="pagin ">
+              {{search}}
               {% if films.total_results > 20 %}
                 {% if search != undifined %}
                 <div id="pagination" data-size="{{films.total_pages}}" data-search="{{search}}" data-href="/?search={{search}}&page="></div>     

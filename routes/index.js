@@ -17,7 +17,6 @@ router.get('/', async function(req, res, next) {
     page = req.query.page
   }
   if(req.query.search == undefined){
-    console.log(query)
     var movie = await film.getNow(page)
     actu = "Actuellement en France"
   }
@@ -25,7 +24,7 @@ router.get('/', async function(req, res, next) {
     var movie = await film.getFilm(query,page)
     actu = "vos résultats pour votre recherche : "+query
   }
-  
+  console.log(query)
   res.render('index', { 
     
     films: movie,
@@ -44,6 +43,7 @@ router.post('/', async function(req, res, next) {
   else{
     page = req.body.page
   }
+  console.log(query)
   let movie = await film.getFilm(query,page)
   req.session.movies = movie
   res.render('index', { 
