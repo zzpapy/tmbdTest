@@ -73,6 +73,7 @@ form{
   top: 0;
   background-color: rgb(255,255,255,0.8);
   height: 16em;
+  overflow: hidden;
 
 }
 .ligne{
