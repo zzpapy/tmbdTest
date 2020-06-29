@@ -2,7 +2,7 @@
 
 {% block body %}
 <article>
-    <h3>{{acteur.name}}</h3>
+    <h3>{{acteur.name}} {{acteur.id}} </h3>
     <span>date de naissance : {{acteur.birthday|date("d/m/Y")}} </span>
     <div>
         <img class="affiche" src="https://image.tmdb.org/t/p/w500/{{acteur.profile_path}}" alt="">

@@ -18,9 +18,9 @@
       {% for film in films.results %}
       
         <tr>
-            <td class="uk-text-center uk-table-middle"><a class="uk-link-heading font" href="/film?id={{film.id}}">{{film.title}}</a></td>
+            <td class="uk-text-center uk-table-middle"><a class="uk-link-heading font" href="/film/{{film.id}}">{{film.title}}</a></td>
             <td class="uk-text-center uk-table-middle">{{film.release_date|date('d/m/Y')}}</td>          
-            <td class="uk-text-center uk-table-middle"><a class="uk-link-heading" href="/film?id={{film.id}}"><img class="affiche" src="https://image.tmdb.org/t/p/w500/{{film.poster_path}}" alt=""></a></td>
+            <td class="uk-text-center uk-table-middle"><a class="uk-link-heading" href="/film/{{film.id}}"><img class="affiche" src="https://image.tmdb.org/t/p/w500/{{film.poster_path}}" alt=""></a></td>
           </tr>
         
         {% endfor %}

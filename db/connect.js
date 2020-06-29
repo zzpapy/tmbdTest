@@ -16,17 +16,13 @@ class Connect{
     getAll(sql, myClass) {
         this.open()
         let tab = []
-        let i = 0
         
-        this.db.all(sql, (err, rows) => {
+        this.db.each(sql, (err, row) => {
             if (err) {
                 console.error(err.message)
             }
             // console.log("rere",tab)
-            rows.forEach((row) => {
-                tab.push(new myClass(row))
-              });
-            i++
+            tab.push(new myClass(row))
         })
         this.db.close()
         return tab

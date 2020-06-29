@@ -6,7 +6,7 @@
         {% if likes > 0 %}
         - likes : {{likes}} 
         {% endif %}
-        <a href="/addLike?id={{film.id}}"><i class="far fa-thumbs-up"></i></a></h1>
+        <a href="/addLike/{{film.id}}"><i class="far fa-thumbs-up"></i></a></h1>
     <div class="uk-flex uk-flex-between">
         <div class="uk-width-1-4">
             <div class="prod">
@@ -32,7 +32,7 @@
                 {% for pers in cast.crew %}
                     {% if pers.job == "Director" %}
                     <p class="center">
-                        <a href="/actor?id={{pers.id}}">
+                        <a href="/actor/{{pers.id}}">
                             {{pers.name}} 
                         </a>
                     </p>
@@ -49,7 +49,7 @@
                 <h3>Casting</h3> 
                 {% for actor in cast.cast %}
                 <p>
-                    <a href="/actor?id={{actor.id}}">
+                    <a href="/actor/{{actor.id}}">
                     {{actor.name}} - rôle : {{actor.character}}
                     </a>
                 </p>        

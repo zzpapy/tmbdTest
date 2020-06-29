@@ -18,8 +18,8 @@ a {
 }
 .nav_color{
   background-color: rgb(255,255,255,0.8);
-  height: 25em;  
   position: fixed;
+  padding: 1em !important;
   top:18em;
 }
 .back{
@@ -31,7 +31,6 @@ a {
 }
 .pad{
   padding: 0 1em;
-  width: 75%;
 }
 .detAff{
   padding: 1em 0;
@@ -49,7 +48,6 @@ a {
 }
 form{
   margin: auto;
-  width: 90%;
 }
 .none{
   margin: 3em auto;

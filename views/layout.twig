@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
   </head>
   <body>
+    {{ session.test }}
     <div class="head">
       <div class="uk-flex">
         <div class="title">
@@ -14,7 +15,7 @@
           <a class="uk-link-heading" href="/">Accueil</a>
         </div>
         <div class="uk-flex-1">
-          <h1 class="uk-text-left uk-padding uk-flex-around">Exploitation de l'API tmbd</h1>
+          <h1 class="uk-text-left uk-padding uk-flex-around">Exploitation de l'API tmdb</h1>
           <div class="uk-flex uk-flex-around">
             {% if actu != undefined %}
             <h3>{{actu}} - nombre de films trouvé : {{films.total_results}}</h3>
@@ -41,7 +42,7 @@
     </div>
     <div class="uk-flex uk-flex-between">
       {% block nav %}
-      <nav class="back uk-padding uk-navbar uk-width-1-5" >
+      <nav class="back uk-padding uk-navbar uk-width-1-4" >
         <div class="uk-navbar-start uk-flex">
             <ul class="uk-navbar-nav uk-flex uk-flex-column nav_color">
                 <li class="uk-active">
