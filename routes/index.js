@@ -186,7 +186,7 @@ router.get("/delete", async function(req, res, next){
   manager.run('delete from comment1 where id='+id)
 
   let movie = await film.getMovie(film_id)
-  res.redirect('/film/'+id,300)
+  res.redirect('/film/'+film_id)
 })
 router.get("/addLike/:id?",async function(req, res, next){
   id = req.params.id
