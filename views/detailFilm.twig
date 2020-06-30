@@ -47,13 +47,15 @@
         <div id="my-id" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
                 <h3>Casting</h3> 
+                <div class="uk-flex uk-flex-wrap">
                 {% for actor in cast.cast %}
-                <p>
-                    <a href="/actor/{{actor.id}}">
-                    {{actor.name}} - rôle : {{actor.character}}
-                    </a>
-                </p>        
-                {% endfor %} 
+                    <div>
+                        <a class="uk-link-heading"href="/actor/{{actor.id}}">
+                            <p > {{actor.name}} </p>
+                            <img class ="affiche" src="https://image.tmdb.org/t/p/w500/{{actor.profile_path}}" alt="">                        
+                        </a>
+                    </div>
+                    {% endfor %} 
                 </div>
             </div>
         </div>
