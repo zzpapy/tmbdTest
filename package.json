@@ -13,7 +13,7 @@
     "http-errors": "~1.6.3",
     "jq-paginator": "^2.0.2",
     "morgan": "~1.9.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "sqlite3": "^4.2.0",
     "twig": "~0.10.3"
   }
